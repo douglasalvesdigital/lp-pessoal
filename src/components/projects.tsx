@@ -1,4 +1,5 @@
 import type { Project } from "@/components/project-card"
+import { ProjectsCarouselMobile } from "@/components/projects-carousel-mobile"
 import { ProjectsMarquee } from "@/components/projects-marquee"
 import { Glow } from "@/components/glow"
 import { Reveal } from "@/components/reveal"
@@ -192,8 +193,12 @@ export function Projects() {
       </div>
 
       {/* Sem Reveal: o transform dele impediria a faixa de ficar acima da máscara */}
-      <div className="mt-4">
+      {/* Desktop/tablet: faixa contínua. Celular: carrossel parado com setas */}
+      <div className="mt-4 hidden md:block">
         <ProjectsMarquee projects={projects} />
+      </div>
+      <div className="mt-10 md:hidden">
+        <ProjectsCarouselMobile projects={projects} />
       </div>
     </section>
   )

@@ -38,11 +38,16 @@ export function ProjectTile({
   project,
   active,
   decorative = false,
+  expand = true,
+  className,
 }: {
   project: Project
   active: boolean
   /** Cópia visual do loop: não repete o título como heading. */
   decorative?: boolean
+  /** Cresce ao ficar ativo (faixa do desktop). No carrossel do celular, não. */
+  expand?: boolean
+  className?: string
 }) {
   const Title = decorative ? "p" : "h3"
   // Montado na primeira interação e mantido depois: as próximas são instantâneas
@@ -52,7 +57,7 @@ export function ProjectTile({
   return (
     <motion.article
       // Mola macia: começa devagar, cresce e assenta sem tranco
-      animate={{ scale: active ? 1.25 : 1 }}
+      animate={{ scale: active && expand ? 1.25 : 1 }}
       transition={{ type: "spring", stiffness: 55, damping: 18, mass: 1.1 }}
       className={cn(
         "bg-background-secondary relative aspect-[16/11] w-[360px] shrink-0 overflow-hidden rounded-2xl border sm:w-[456px] lg:w-[504px]",
@@ -60,6 +65,7 @@ export function ProjectTile({
         active
           ? "border-red-primary/50 shadow-[0_40px_120px_-30px_rgb(0_0_0/0.95),0_0_80px_-24px_rgb(229_9_20/0.55)]"
           : "border-border",
+        className,
       )}
     >
       {/* Fundo: mockup → navegação */}
