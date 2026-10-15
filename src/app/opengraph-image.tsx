@@ -69,7 +69,7 @@ export default async function Image() {
           src={photo}
           alt=""
           width={470}
-          height={562}
+          height={569}
           style={{ position: "absolute", right: 40, bottom: 0 }}
         />
 

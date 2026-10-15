@@ -102,10 +102,10 @@ function Portrait() {
           src="/jed-foto.png"
           alt="Jedson Santos, desenvolvedor full stack"
           width={1122}
-          height={1342}
+          height={1358}
           preload
           sizes="(min-width: 1280px) 520px, (min-width: 1024px) 420px, (min-width: 640px) 440px, 400px"
-          className="h-auto w-full drop-shadow-[0_0_60px_rgb(229_9_20/0.25)] [mask-image:linear-gradient(to_bottom,black_72%,transparent_99%)]"
+          className="h-auto w-full drop-shadow-[0_0_60px_rgb(229_9_20/0.25)] [mask-composite:intersect] [mask-image:linear-gradient(to_bottom,black_70%,transparent_99%),linear-gradient(to_right,transparent_0%,black_16%,black_84%,transparent_100%)]"
         />
       </motion.div>
 

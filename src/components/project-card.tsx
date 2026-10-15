@@ -62,6 +62,10 @@ export function ProjectTile({
   const [mounted, setMounted] = useState(false)
   if (active && !mounted) setMounted(true)
   if (!active && mounted && !keepVideo) setMounted(false)
+  // A thumb só sai quando o vídeo já está tocando: nada de card preto
+  const [videoReady, setVideoReady] = useState(false)
+  if (!mounted && videoReady) setVideoReady(false)
+  const showVideo = active && (!project.preview?.video || videoReady)
 
   return (
     <motion.article
@@ -89,7 +93,7 @@ export function ProjectTile({
           quality={90}
           className={cn(
             "object-cover transition-[transform,opacity] duration-[1400ms] ease-in-out",
-            active && project.preview ? "scale-105 opacity-0" : "scale-100",
+            showVideo && project.preview ? "scale-105 opacity-0" : "scale-100",
           )}
         />
       ) : (
@@ -100,11 +104,15 @@ export function ProjectTile({
         <div
           className={cn(
             "absolute inset-0 transition-opacity duration-700 ease-in-out",
-            active ? "opacity-100 delay-150" : "opacity-0",
+            showVideo ? "opacity-100" : "opacity-0",
           )}
         >
           {project.preview.video ? (
-            <VideoCapture video={project.preview.video} playing={active} />
+            <VideoCapture
+              video={project.preview.video}
+              playing={active}
+              onReady={setVideoReady}
+            />
           ) : project.preview.scroll && active ? (
             <ScrollCapture
               scroll={project.preview.scroll}
@@ -189,12 +197,14 @@ const Shimmer = () => (
 function VideoCapture({
   video,
   playing,
+  onReady,
 }: {
   video: NonNullable<NonNullable<Project["preview"]>["video"]>
   playing: boolean
+  /** Avisa quando o vídeo começa a tocar de fato (e quando para). */
+  onReady: (ready: boolean) => void
 }) {
   const ref = useRef<HTMLVideoElement>(null)
-  const [ready, setReady] = useState(false)
 
   useEffect(() => {
     const el = ref.current
@@ -206,24 +216,26 @@ function VideoCapture({
       el.play().catch(() => {})
     } else {
       el.pause()
+      onReady(false)
     }
-  }, [playing])
+  }, [playing, onReady])
 
   return (
-    <div className="bg-background absolute inset-0">
+    <div className="absolute inset-0">
       <video
         ref={ref}
         muted
         loop
         playsInline
         preload="auto"
-        onCanPlay={() => setReady(true)}
+        // "playing" = já tem quadro na tela; aí a thumb pode sair
+        onPlaying={() => onReady(true)}
+        onWaiting={() => onReady(false)}
         className="absolute inset-0 size-full object-cover object-top"
       >
         {video.webm && <source src={video.webm} type="video/webm" />}
         <source src={video.mp4} type="video/mp4" />
       </video>
-      {!ready && <Shimmer />}
     </div>
   )
 }
