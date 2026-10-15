@@ -18,10 +18,38 @@ import {
   WordpressVisual,
 } from "@/components/specialty-visuals"
 
+import {
+  siClaude,
+  siCursor,
+  siFigma,
+  siGithubcopilot,
+  siGooglegemini,
+  siJavascript,
+  siMysql,
+  siN8n,
+  siNextdotjs,
+  siNodedotjs,
+  siPhp,
+  siPostman,
+  siReact,
+  siShadcnui,
+  siSupabase,
+  siTailwindcss,
+  siTypescript,
+  siVercel,
+  siWhatsapp,
+  siWordpress,
+} from "simple-icons"
+import { openaiPath } from "@/components/brand-icons"
+
+/** Ícone (path SVG 24×24) + nome; sem path, vira só texto. */
+type StackItem = { title: string; path?: string }
+
 type Specialty = {
   title: string
   text: string
-  tags: string[]
+  /** Ferramentas do dia a dia nessa frente (logo + nome). */
+  stack: StackItem[]
   /**
    * Recebe se o card é o da vez. O visual começa na primeira chegada e depois
    * só pausa/retoma — nunca é remontado, para não reiniciar quando a rolagem
@@ -40,28 +68,49 @@ const HYSTERESIS_PX = 60
 const specialties: Specialty[] = [
   {
     title: "Desenvolvimento Web",
-    text: "Construção de sites, landing pages e aplicações web modernas, com atenção à arquitetura, desempenho, acessibilidade e manutenção.",
-    tags: ["Next.js", "React", "TypeScript", "Performance", "Acessibilidade"],
+    text: "Sites, landing pages e aplicações em Next.js e React. Rápidos, acessíveis e fáceis de manter depois que vão para o ar.",
+    stack: [
+      siNextdotjs,
+      siReact,
+      siTypescript,
+      siTailwindcss,
+      siShadcnui,
+      siVercel,
+      siFigma,
+    ],
     visual: (active) => <WebVisual active={active} />,
   },
   {
-    title: "WordPress & Soluções Customizadas",
-    text: "Desenvolvimento de temas, funcionalidades sob medida, estruturas com ACF e soluções integradas a sistemas externos.",
-    tags: ["Temas sob medida", "ACF", "PHP", "Headless", "Integrações"],
+    title: "WordPress sob medida",
+    text: "Temas feitos do zero, ACF bem estruturado e WordPress headless. Quem cuida do conteúdo edita tudo sozinho, sem depender de dev.",
+    stack: [siWordpress, siPhp, siJavascript, siMysql, { title: "ACF" }],
     visual: (active) => <WordpressVisual active={active} />,
   },
   {
     title: "Integrações & Automação",
-    text: "Conexão entre plataformas, APIs e fluxos de trabalho para reduzir tarefas manuais e melhorar a eficiência operacional.",
-    tags: ["APIs REST", "Webhooks", "n8n", "CRM", "WhatsApp"],
+    text: "Ligo o site ao CRM, ao WhatsApp, a APIs e ao n8n para tirar do caminho aquela tarefa repetida que ninguém aguenta mais fazer.",
+    stack: [
+      siN8n,
+      siNodedotjs,
+      siSupabase,
+      siWhatsapp,
+      siPostman,
+      { title: "APIs REST" },
+    ],
     visual: (active) => (
       <AutomationFlow playing={active} compact className="h-full" />
     ),
   },
   {
-    title: "Inteligência Artificial Aplicada",
-    text: "Utilização de IA no processo de desenvolvimento e na criação de soluções práticas para problemas do dia a dia.",
-    tags: ["Claude", "Agentes", "Automação com IA", "Dev assistido"],
+    title: "IA na prática",
+    text: "Uso IA no meu fluxo para entregar mais rápido, e crio automações e agentes que resolvem problemas reais, não demos bonitas.",
+    stack: [
+      siClaude,
+      { title: "ChatGPT", path: openaiPath },
+      siGooglegemini,
+      siCursor,
+      siGithubcopilot,
+    ],
     visual: (active) => <AiVisual active={active} />,
   },
 ]
@@ -108,12 +157,12 @@ export function Specialties() {
             especialidades
           </p>
           <h2 className="mt-4 text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
-            O que eu faço
+            Como posso ajudar
           </h2>
           <p className="text-muted-foreground mt-5 text-lg text-balance">
-            Tecnologia é ferramenta.{" "}
+            Você traz o problema.{" "}
             <span className="text-foreground">
-              Resolver problemas é o objetivo.
+              Eu escolho a ferramenta certa e resolvo.
             </span>
           </p>
         </Reveal>
@@ -165,7 +214,7 @@ function StackCard({
         "sticky top-0 pt-12 lg:pt-20",
         // No celular os cards são baixos (sem o visual): menos rolagem entre eles.
         // O último não tem ninguém para cobri-lo: só ocupa o próprio tamanho.
-        index === total - 1 ? "" : "h-[62svh] lg:h-svh",
+        index === total - 1 ? "" : "h-[72svh] lg:h-svh",
       )}
       // O deslocamento da pilha (top) não ocupa espaço: o último card o
       // compensa embaixo, para não avançar sobre a seção seguinte
@@ -204,13 +253,32 @@ function StackCard({
               <p className="text-muted-foreground mt-5 max-w-md text-base leading-relaxed sm:text-lg">
                 {item.text}
               </p>
-              <ul className="mt-auto flex flex-wrap gap-2 pt-8">
-                {item.tags.map((tag) => (
+              {/* Grade de ferramentas: ocupa o espaço livre na base do card */}
+              <ul className="mt-auto grid grid-cols-4 gap-1.5 pt-6 sm:gap-2 sm:pt-8">
+                {item.stack.map((tool) => (
                   <li
-                    key={tag}
-                    className="border-border text-foreground/75 rounded-full border px-3 py-1 text-xs"
+                    key={tool.title}
+                    className="group/tool border-border/80 bg-background/40 hover:border-foreground/20 hover:bg-background/70 flex flex-col items-center justify-center gap-2 rounded-xl border px-1 py-3 text-center transition-colors sm:gap-2.5 sm:px-2 sm:py-4 lg:py-5"
                   >
-                    {tag}
+                    {tool.path ? (
+                      <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden
+                        className="text-foreground/70 group-hover/tool:text-foreground size-6 fill-current transition-colors sm:size-7 lg:size-8"
+                      >
+                        <path d={tool.path} />
+                      </svg>
+                    ) : (
+                      <span
+                        aria-hidden
+                        className="text-foreground/70 group-hover/tool:text-foreground flex h-6 items-center font-mono text-sm font-semibold transition-colors sm:h-7 lg:h-8"
+                      >
+                        {"{ }"}
+                      </span>
+                    )}
+                    <span className="text-muted-foreground group-hover/tool:text-foreground text-[10px] leading-tight transition-colors sm:text-xs">
+                      {tool.title}
+                    </span>
                   </li>
                 ))}
               </ul>

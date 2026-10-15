@@ -1,5 +1,5 @@
 import type { Project } from "@/components/project-card"
-import { ProjectsCarouselMobile } from "@/components/projects-carousel-mobile"
+import { ProjectsCarousel } from "@/components/projects-carousel"
 import { ProjectsMarquee } from "@/components/projects-marquee"
 import { Glow } from "@/components/glow"
 import { Reveal } from "@/components/reveal"
@@ -183,22 +183,22 @@ export function Projects() {
               projetos
             </p>
             <h2 className="mt-4 text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
-              Projetos que ajudei a construir
+              Projetos que entreguei
             </h2>
           </div>
           <p className="text-muted-foreground max-w-xs text-sm leading-relaxed sm:text-right">
-            Do mercado imobiliário à gastronomia: hotelaria, transporte, audiovisual e finanças.
+            Uma seleção entre os mais de 80 que já coloquei no ar.
           </p>
         </Reveal>
       </div>
 
       {/* Sem Reveal: o transform dele impediria a faixa de ficar acima da máscara */}
       {/* Desktop/tablet: faixa contínua. Celular: carrossel parado com setas */}
-      <div className="mt-4 hidden md:block">
+      <div className="mt-10 hidden md:block">
         <ProjectsMarquee projects={projects} />
       </div>
       <div className="mt-10 md:hidden">
-        <ProjectsCarouselMobile projects={projects} />
+        <ProjectsCarousel projects={projects} />
       </div>
     </section>
   )

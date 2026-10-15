@@ -73,9 +73,9 @@ export function SiteFooter() {
             />
             <p className="text-muted-foreground mt-5 max-w-sm leading-relaxed">
               Menos hype.{" "}
-              <span className="text-foreground">Mais aplicação.</span>{" "}
-              Desenvolvimento web, integrações e IA aplicada para marcas que
-              precisam de resultado.
+              <span className="text-foreground">Mais aplicação.</span> Sites,
+              integrações e automação com IA, sem enrolação. Aberto a projetos,
+              freelas e boas oportunidades.
             </p>
 
             <a
@@ -87,7 +87,7 @@ export function SiteFooter() {
               <span className="bg-red-primary flex size-8 items-center justify-center rounded-full shadow-[0_0_16px_-2px_rgb(229_9_20/0.8)]">
                 <WhatsappIcon className="size-4" />
               </span>
-              Vamos tirar sua ideia do papel
+              Vamos conversar
               <ArrowUpRight className="text-muted-foreground group-hover/cta:text-foreground size-4 transition-[color,transform] group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
             </a>
 
@@ -161,7 +161,10 @@ export function SiteFooter() {
         <div className="border-border/70 mt-16 flex flex-col gap-4 border-t py-6 text-xs sm:flex-row sm:items-center sm:justify-between">
           <div className="text-muted-foreground flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
             <p>© 2026 {site.name}. Todos os direitos reservados.</p>
-            <span aria-hidden className="text-muted-foreground/40 hidden sm:inline">
+            <span
+              aria-hidden
+              className="text-muted-foreground/40 hidden sm:inline"
+            >
               ·
             </span>
             <PrivacyDialog className="hover:text-red-light w-fit cursor-pointer text-left underline-offset-4 transition-colors hover:underline" />
@@ -177,7 +180,6 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-
     </footer>
   )
 }

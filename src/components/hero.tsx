@@ -1,10 +1,14 @@
 "use client"
 
 import type { ReactNode } from "react"
+import Image from "next/image"
 import { motion, type Variants } from "motion/react"
 import { ArrowUpRight } from "lucide-react"
 import { buttonVariants } from "@/components/ui/button"
+import { WhatsappIcon } from "@/components/brand-icons"
 import { NeuralSphere } from "@/components/neural-sphere"
+import { StatBubble } from "@/components/stat-bubble"
+import { site } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 const container: Variants = {
@@ -21,64 +25,102 @@ const item: Variants = {
 export function Hero({ footer }: { footer?: ReactNode }) {
   return (
     <section className="glow-top-right-soft lg:glow-top-right relative isolate flex min-h-svh flex-col overflow-hidden">
-      <div className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-12 px-6 pt-28 pb-12 lg:grid-cols-2 lg:gap-8 lg:px-8 lg:pt-20 lg:pb-8">
+      <div className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-6 px-6 pt-24 pb-14 lg:grid-cols-[1.05fr_1fr] lg:gap-4 lg:px-8 lg:pt-24 lg:pb-16">
+        {/* Texto — no celular vem depois da foto */}
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="max-w-xl"
+          className="order-2 max-w-xl lg:order-1"
         >
           <motion.h1
             variants={item}
-            className="text-4xl leading-[1.1] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl"
+            className="text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-[3.15rem]"
           >
-            Transformando desafios em{" "}
-            <span className="text-red-light glow-text-red">
-              soluções digitais.
-            </span>
+            Sites, integrações e automação com IA.{" "}
+            <span className="text-red-light glow-text-red">Sem enrolação.</span>
           </motion.h1>
 
           <motion.p
             variants={item}
             className="text-muted-foreground mt-6 text-base leading-relaxed sm:text-lg"
           >
-            Desenvolvimento web, integrações e automação com IA. Da estratégia
-            ao código, construo soluções com foco em performance, eficiência e
-            resultados.
+            Sou o Jedson, desenvolvedor full stack. Em mais de 4 anos, coloquei
+            80+ projetos no ar para marcas, agências e times de produto. Hoje
+            estou aberto a novos projetos, freelas e boas oportunidades.
           </motion.p>
 
-          <motion.div variants={item} className="mt-10 flex flex-wrap gap-3">
+          <motion.div variants={item} className="mt-9 flex flex-wrap gap-3">
             <a
               href="#projetos"
               className={cn(
                 buttonVariants(),
-                "hover:bg-red-light h-11 px-5 text-sm hover:shadow-[0_8px_32px_-8px_rgb(255_52_59/0.6)]"
+                "hover:bg-red-light h-11 px-5 text-sm hover:shadow-[0_8px_32px_-8px_rgb(255_52_59/0.6)]",
               )}
             >
-              Explorar projetos
+              Ver meus projetos
               <ArrowUpRight className="transition-transform group-hover/button:translate-x-0.5 group-hover/button:-translate-y-0.5" />
             </a>
             <a
-              href="#sobre"
+              href={site.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
               className={cn(
                 buttonVariants({ variant: "outline" }),
-                "hover:border-foreground/30 h-11 bg-transparent px-5 text-sm"
+                "hover:border-foreground/30 h-11 bg-transparent px-5 text-sm",
               )}
             >
-              Sobre mim
+              <WhatsappIcon className="size-4" />
+              Vamos conversar
             </a>
           </motion.div>
         </motion.div>
 
-        {/* Celular: a esfera vira fundo translúcido atrás do texto, liberando
-            espaço para as logos aparecerem na primeira dobra.
-            Desktop (lg:contents): o wrapper some e a esfera volta à coluna da direita. */}
-        <div className="pointer-events-none absolute inset-x-0 top-24 -z-10 flex justify-center opacity-30 lg:pointer-events-auto lg:contents">
-          <NeuralSphere className="w-[115%] max-w-[560px] shrink-0 lg:-mt-4 lg:w-[110%] lg:max-w-[680px] lg:shrink lg:translate-x-[6%] lg:self-start lg:justify-self-end" />
-        </div>
+        <Portrait />
       </div>
 
       {footer}
     </section>
+  )
+}
+
+/** Foto em destaque, com a esfera de sinapses viva atrás. */
+function Portrait() {
+  return (
+    <div className="relative order-1 mx-auto w-full max-w-[400px] self-center sm:max-w-[440px] lg:order-2 lg:max-w-[520px] lg:justify-self-end">
+      {/* Esfera de sinapses: o "cérebro" atrás da cabeça. A foto não captura o
+          mouse, então a esfera continua reagindo ao hover. */}
+      <NeuralSphere className="absolute top-[-18%] left-1/2 w-[135%] max-w-none -translate-x-1/2 opacity-70 lg:top-[-24%] lg:w-[150%] lg:opacity-90" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+        className="pointer-events-none relative"
+      >
+        <Image
+          src="/jed-foto.png"
+          alt="Jedson Santos, desenvolvedor full stack"
+          width={1122}
+          height={1342}
+          preload
+          sizes="(min-width: 1024px) 520px, (min-width: 640px) 440px, 400px"
+          className="h-auto w-full drop-shadow-[0_0_60px_rgb(229_9_20/0.25)] [mask-image:linear-gradient(to_bottom,black_72%,transparent_99%)]"
+        />
+      </motion.div>
+
+      {/* Números em destaque */}
+      <StatBubble
+        className="top-[24%] -right-1 sm:-right-6"
+        value="+4 anos"
+        label="full stack"
+      />
+      <StatBubble
+        className="top-[52%] -left-2 sm:-left-10 [animation-delay:-2s]"
+        value="80+ projetos"
+        label="entregues"
+        accent
+      />
+    </div>
   )
 }

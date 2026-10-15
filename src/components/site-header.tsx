@@ -91,7 +91,7 @@ export function SiteHeader() {
         <div className="relative flex h-14 items-center justify-between gap-6 px-4 sm:px-5 lg:h-16 lg:px-6">
           <Link
             href="/"
-            aria-label="JEDTEC — página inicial"
+            aria-label="JEDTEC, página inicial"
             onClick={() => setOpen(false)}
           >
             <Image

@@ -108,7 +108,7 @@ function ScoreRing({
 
 export function WebVisual({ active }: { active: boolean }) {
   return (
-    <Window title="jed.tec — Lighthouse">
+    <Window title="jed.tec · Lighthouse">
       <div className="flex h-full flex-col justify-between gap-6 p-6">
         <div className="grid grid-cols-4 gap-2">
           {scores.map((label, i) => (
@@ -314,7 +314,7 @@ export function AiVisual({ active }: { active: boolean }) {
   }, [inView, reduceMotion, typed, shown])
 
   return (
-    <Window title="~/projetos/jed-tec — zsh">
+    <Window title="~/projetos/jed-tec · zsh">
       <div
         ref={ref}
         className="space-y-2.5 p-5 font-mono text-[12.5px] leading-relaxed"

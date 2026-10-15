@@ -50,7 +50,7 @@ export function PrivacyDialog({ className }: { className?: string }) {
           <p className="text-muted-foreground leading-relaxed">
             Esta política explica como este site trata informações pessoais, em
             conformidade com a Lei Geral de Proteção de Dados (Lei nº
-            13.709/2018 — LGPD).
+            13.709/2018, a LGPD).
           </p>
 
           <Section title="1. Quem é o responsável">

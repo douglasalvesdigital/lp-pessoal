@@ -5,7 +5,7 @@ import { join } from "node:path"
 
 // Imagem exibida ao compartilhar o site (WhatsApp, LinkedIn, X, Slack...)
 export const alt =
-  "JEDTEC — Jedson Santos, desenvolvedor full stack: desenvolvimento web, integrações e IA aplicada"
+  "JEDTEC, de Jedson Santos, desenvolvedor full stack: desenvolvimento web, integrações e IA aplicada"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
@@ -99,9 +99,9 @@ export default async function Image() {
               }}
             >
               {/* Linhas explícitas: a quebra automática do satori mede alto demais */}
-              <span>Transformando</span>
-              <span>desafios em</span>
-              <span style={{ color: "#FF343B" }}>soluções digitais.</span>
+              <span>Sites, integrações e</span>
+              <span>automação com IA.</span>
+              <span style={{ color: "#FF343B" }}>Sem enrolação.</span>
             </div>
             <div
               style={{
@@ -110,7 +110,7 @@ export default async function Image() {
                 lineHeight: 1.4,
               }}
             >
-              Desenvolvimento web, integrações e automação com IA.
+              80+ projetos no ar. Aberto a projetos, freelas e oportunidades.
             </div>
           </div>
 

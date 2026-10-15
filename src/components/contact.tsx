@@ -65,7 +65,7 @@ export function Contact() {
                   )}
                 >
                   <WhatsappIcon className="size-4" />
-                  Entrar em contato
+                  Vamos conversar
                   <ArrowUpRight className="transition-transform group-hover/button:translate-x-0.5 group-hover/button:-translate-y-0.5" />
                 </a>
                 <a

@@ -38,6 +38,7 @@ export function ProjectTile({
   project,
   active,
   decorative = false,
+  bare = false,
   expand = true,
   className,
 }: {
@@ -45,6 +46,8 @@ export function ProjectTile({
   active: boolean
   /** Cópia visual do loop: não repete o título como heading. */
   decorative?: boolean
+  /** Só imagem/vídeo, sem o texto sobreposto (o texto fica fora do card). */
+  bare?: boolean
   /** Cresce ao ficar ativo (faixa do desktop). No carrossel do celular, não. */
   expand?: boolean
   className?: string
@@ -75,7 +78,9 @@ export function ProjectTile({
           alt={`Projeto ${project.name}`}
           fill
           draggable={false}
-          sizes="(min-width: 1024px) 640px, 460px"
+          // Card grande: até 880px no desktop (64vw), 72vw no celular
+          sizes="(min-width: 768px) min(64vw, 880px), 72vw"
+          quality={90}
           className={cn(
             "object-cover transition-[transform,opacity] duration-[1400ms] ease-in-out",
             active && project.preview ? "scale-105 opacity-0" : "scale-100",
@@ -101,7 +106,7 @@ export function ProjectTile({
             />
           ) : null}
 
-          <span className="bg-background/70 text-foreground/80 absolute top-3 right-3 flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[9px] backdrop-blur-md">
+          <span className="bg-background/70 text-foreground/80 absolute top-3 right-3 flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[9px] backdrop-blur-md md:top-4 md:right-4 md:px-3 md:py-1 md:text-xs">
             <Lock className="size-2.5" />
             {new URL(project.preview.url).host}
           </span>
@@ -109,59 +114,63 @@ export function ProjectTile({
       )}
 
       {/* Texto sobre degradê */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent px-4 pt-16 pb-4">
-        <div className="flex items-center gap-2 text-[10px] tracking-[0.1em] uppercase">
-          <span className="text-red-light font-medium">{project.segment}</span>
-          {project.agency && (
-            <span className="text-muted-foreground">
-              · via {project.agency}
+      {!bare && (
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent px-4 pt-16 pb-4 md:px-7 md:pt-24 md:pb-6">
+          <div className="flex items-center gap-2 text-[10px] tracking-[0.1em] uppercase md:text-xs">
+            <span className="text-red-light font-medium">
+              {project.segment}
             </span>
-          )}
-        </div>
-        <Title className="mt-1 text-lg font-semibold tracking-tight">
-          {project.name}
-        </Title>
+            {project.agency && (
+              <span className="text-muted-foreground">
+                · via {project.agency}
+              </span>
+            )}
+          </div>
+          <Title className="mt-1 text-lg font-semibold tracking-tight md:mt-2 md:text-3xl">
+            {project.name}
+          </Title>
 
-        {/* Detalhes revelados ao interagir */}
-        <div
-          className={cn(
-            "grid transition-[grid-template-rows,opacity] duration-1000 ease-in-out",
-            active
-              ? "grid-rows-[1fr] opacity-100"
-              : "grid-rows-[0fr] opacity-0",
-          )}
-        >
-          <div className="overflow-hidden">
-            <p className="text-foreground/75 mt-1.5 line-clamp-2 text-[11px] leading-snug">
-              {project.description}
-            </p>
-            <div className="mt-2 flex items-center justify-between gap-3">
-              <ul className="flex flex-wrap gap-1">
-                {project.tags.slice(0, 4).map((tag) => (
-                  <li
-                    key={tag}
-                    className="bg-surface/80 text-foreground/80 rounded px-1.5 py-0.5 text-[9px]"
+          {/* Detalhes revelados ao interagir */}
+          <div
+            className={cn(
+              "grid transition-[grid-template-rows,opacity] duration-1000 ease-in-out",
+              active
+                ? "grid-rows-[1fr] opacity-100"
+                : "grid-rows-[0fr] opacity-0",
+            )}
+          >
+            <div className="overflow-hidden">
+              <p className="text-foreground/75 mt-1.5 line-clamp-2 max-w-2xl text-[11px] leading-snug md:mt-3 md:text-base md:leading-relaxed">
+                {project.description}
+              </p>
+              <div className="mt-2 flex items-center justify-between gap-3 md:mt-4">
+                <ul className="flex flex-wrap gap-1">
+                  {project.tags.slice(0, 4).map((tag) => (
+                    <li
+                      key={tag}
+                      className="bg-surface/80 text-foreground/80 rounded px-1.5 py-0.5 text-[9px] md:px-2.5 md:py-1 md:text-xs"
+                    >
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+                {project.url && (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabIndex={active ? 0 : -1}
+                    className="text-red-light hover:text-foreground pointer-events-auto inline-flex shrink-0 items-center gap-0.5 text-[11px] font-medium md:gap-1 md:text-sm transition-colors"
                   >
-                    {tag}
-                  </li>
-                ))}
-              </ul>
-              {project.url && (
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  tabIndex={active ? 0 : -1}
-                  className="text-red-light hover:text-foreground pointer-events-auto inline-flex shrink-0 items-center gap-0.5 text-[11px] font-medium transition-colors"
-                >
-                  Ver projeto
-                  <ArrowUpRight className="size-3" />
-                </a>
-              )}
+                    Ver projeto
+                    <ArrowUpRight className="size-3 md:size-4" />
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </motion.article>
   )
 }
