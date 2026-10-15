@@ -20,10 +20,10 @@ import { cn } from "@/lib/utils"
 
 /** Camadas da pilha, de cima (problema) para baixo (resultado). */
 const layers: { label: string; icon: LucideIcon }[] = [
-  { label: "Problema", icon: FileText },
-  { label: "Estratégia", icon: CircleCheck },
-  { label: "Desenvolvimento", icon: CodeXml },
-  { label: "Resultado", icon: ChartColumnIncreasing },
+  { label: "Entender", icon: FileText },
+  { label: "Escolher o caminho", icon: CircleCheck },
+  { label: "Construir", icon: CodeXml },
+  { label: "Entregar", icon: ChartColumnIncreasing },
 ]
 
 /** Passos do processo; cada um acende a camada de mesmo índice. */
@@ -48,12 +48,6 @@ const steps: { title: string; text: string; image: string }[] = [
     text: "Colocar no ar e acompanhar de perto.",
     image: "/processo/04-entregar.svg",
   },
-]
-
-const stats = [
-  { value: "+4", label: "anos de experiência" },
-  { value: "80+", label: "projetos entregues" },
-  { value: "1", label: "contato do início ao fim" },
 ]
 
 /** Tempo em cada etapa antes de acender a próxima (ms). */
@@ -100,6 +94,10 @@ export function About() {
                 repetitivo, e eu fico com o que importa:{" "}
                 <span className="text-foreground">pensar bem a solução.</span>
               </p>
+              <p className="text-muted-foreground mt-4 max-w-xl text-base leading-relaxed sm:text-lg">
+                E você fala direto com quem desenvolve,{" "}
+                <span className="text-foreground">do briefing à entrega.</span>
+              </p>
             </Reveal>
 
             <Reveal delay={0.15} className="order-3">
@@ -122,7 +120,7 @@ export function About() {
                   "hover:bg-red-light h-11 px-5 text-sm shadow-[0_8px_32px_-10px_rgb(229_9_20/0.7)]",
                 )}
               >
-                Vamos conversar
+                Me conta seu projeto
                 <ArrowUpRight className="transition-transform group-hover/button:translate-x-0.5 group-hover/button:-translate-y-0.5" />
               </a>
               {site.resume && (
@@ -141,24 +139,13 @@ export function About() {
             </Reveal>
 
             <Reveal delay={0.25} className="order-3">
-              <ul className="mt-10 grid max-w-xl grid-cols-3 gap-3">
-                {stats.map((stat) => (
-                  <li
-                    key={stat.label}
-                    className="border-border/80 bg-background-secondary/50 rounded-xl border px-4 py-4 backdrop-blur-sm"
-                  >
-                    <p className="text-2xl font-semibold tracking-tight sm:text-3xl">
-                      {stat.value}
-                    </p>
-                    <p className="text-muted-foreground mt-1 text-xs leading-snug">
-                      {stat.label}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-              <p className="text-muted-foreground mt-6 flex items-start gap-2.5 text-sm">
+              <p className="text-muted-foreground mt-10 flex items-start gap-2.5 text-sm">
                 <GraduationCap className="mt-0.5 size-4 shrink-0" />
-                Análise e Desenvolvimento de Sistemas · Multi-agentes (StartSe)
+                <span>
+                  <span className="text-foreground/80">Formação:</span> Análise
+                  e Desenvolvimento de Sistemas · Curso de arquitetura de
+                  multi-agentes (StartSe)
+                </span>
               </p>
             </Reveal>
           </div>
@@ -360,7 +347,7 @@ function ProcessStack({
                     </span>
                     <span
                       className={cn(
-                        "text-lg font-medium transition-colors duration-500",
+                        "text-base font-medium whitespace-nowrap transition-colors duration-500",
                         on ? "text-white" : "text-foreground/85",
                       )}
                     >

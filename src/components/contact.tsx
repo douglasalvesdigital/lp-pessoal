@@ -42,10 +42,8 @@ export function Contact() {
             <div className="px-6 py-14 text-center sm:px-12 lg:py-20">
               <Eyebrow center>Contato</Eyebrow>
               <h2 className="mt-5 text-4xl leading-[1.1] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
-                Tem um desafio em mente?{" "}
-                <span className="text-red-light glow-text-red">
-                  Vamos conversar.
-                </span>
+                Tem um projeto em mente?{" "}
+                <span className="text-red-light glow-text-red">Me conta.</span>
               </h2>
 
               <p className="text-muted-foreground mx-auto mt-6 max-w-xl text-base leading-relaxed text-pretty sm:text-lg">

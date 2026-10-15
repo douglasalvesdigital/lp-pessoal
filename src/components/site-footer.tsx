@@ -87,7 +87,7 @@ export function SiteFooter() {
               <span className="bg-red-primary flex size-8 items-center justify-center rounded-full shadow-[0_0_16px_-2px_rgb(229_9_20/0.8)]">
                 <WhatsappIcon className="size-4" />
               </span>
-              Vamos conversar
+              Chamar no WhatsApp
               <ArrowUpRight className="text-muted-foreground group-hover/cta:text-foreground size-4 transition-[color,transform] group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
             </a>
 

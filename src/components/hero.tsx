@@ -46,9 +46,9 @@ export function Hero({ footer }: { footer?: ReactNode }) {
             variants={item}
             className="text-muted-foreground mt-6 text-base leading-relaxed sm:text-lg"
           >
-            Sou o Jedson, desenvolvedor full stack. Em mais de 4 anos, coloquei
-            80+ projetos no ar para marcas, agências e times de produto. Hoje
-            estou aberto a novos projetos, freelas e boas oportunidades.
+            Sou o Jedson, desenvolvedor full stack. Crio sites, sistemas e
+            automações para marcas, agências e times de produto. Hoje estou
+            aberto a novos projetos, freelas e boas oportunidades.
           </motion.p>
 
           <motion.div variants={item} className="mt-9 flex flex-wrap gap-3">
@@ -72,7 +72,7 @@ export function Hero({ footer }: { footer?: ReactNode }) {
               )}
             >
               <WhatsappIcon className="size-4" />
-              Vamos conversar
+              Chamar no WhatsApp
             </a>
           </motion.div>
         </motion.div>
@@ -111,7 +111,7 @@ function Portrait() {
       {/* Números em destaque */}
       <StatBubble
         className="top-[24%] -right-1 sm:-right-6"
-        value="+4 anos"
+        value="4+ anos"
         label="full stack"
       />
       <StatBubble
