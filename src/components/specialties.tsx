@@ -41,6 +41,7 @@ import {
   siWordpress,
 } from "simple-icons"
 import { openaiPath } from "@/components/brand-icons"
+import { Eyebrow } from "@/components/eyebrow"
 
 /** Ícone (path SVG 24×24) + nome; sem path, vira só texto. */
 type StackItem = { title: string; path?: string }
@@ -153,10 +154,8 @@ export function Specialties() {
       <Glow className="-bottom-80 -left-64" />
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal className="max-w-2xl">
-          <p className="text-muted-foreground text-sm tracking-[0.12em]">
-            especialidades
-          </p>
-          <h2 className="mt-4 text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
+          <Eyebrow>Especialidades</Eyebrow>
+          <h2 className="mt-5 text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
             Como posso ajudar
           </h2>
           <p className="text-muted-foreground mt-5 text-lg text-balance">

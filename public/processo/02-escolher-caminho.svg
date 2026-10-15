@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="300" viewBox="0 0 420 300" role="img"><defs>
+  <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22232b"/><stop offset=".48" stop-color="#111217"/><stop offset="1" stop-color="#08090d"/></linearGradient>
+  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff5365"/><stop offset=".38" stop-color="#ee102c"/><stop offset="1" stop-color="#7e0016"/></linearGradient>
+  <linearGradient id="redSide" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a80924"/><stop offset="1" stop-color="#35030d"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#24252c" stop-opacity=".97"/><stop offset=".55" stop-color="#121317" stop-opacity=".96"/><stop offset="1" stop-color="#090a0e" stop-opacity=".98"/></linearGradient>
+  <radialGradient id="halo"><stop stop-color="#e6002a" stop-opacity=".30"/><stop offset=".6" stop-color="#b10019" stop-opacity=".08"/><stop offset="1" stop-color="#f60028" stop-opacity="0"/></radialGradient>
+  <filter id="shadow" x="-40%" y="-60%" width="190%" height="240%"><feGaussianBlur stdDeviation="16"/></filter>
+  <filter id="shine" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="7"/></filter>
+  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+  <pattern id="dots" width="25" height="25" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".8" fill="#555964" opacity=".14"/></pattern>
+</defs>
+<ellipse cx="216" cy="153" rx="184" ry="147" fill="url(#halo)"/>
+<ellipse cx="218" cy="255" rx="139" ry="20" fill="#000" opacity=".65" filter="url(#shadow)"/>
+<g stroke-linejoin="round">
+ <path d="M112 195L208 147L315 195L217 244Z" fill="#12131b" stroke="#393a43" stroke-width="2"/><path d="M112 195v20l105 51v-22Z" fill="#090a10" stroke="#343540"/><path d="M217 244v22l98-51v-20Z" fill="#161019" stroke="#343540"/>
+ <path d="M112 155L208 106L315 154L217 202Z" fill="url(#surface)" stroke="#52515e" stroke-width="2"/><path d="M112 155v24l105 48v-25Z" fill="#0d0f15" stroke="#36323d"/><path d="M217 202v25l98-48v-25Z" fill="#1b131d" stroke="#41303a"/>
+ <path d="M112 112L208 64L315 112L217 161Z" fill="url(#surface)" stroke="#77707b" stroke-width="2"/><path d="M112 112v22l105 51v-24Z" fill="#0b0d14" stroke="#3d3440"/><path d="M217 161v24l98-51v-22Z" fill="#200e17" stroke="#583442"/>
+ <path d="M159 113L210 87L262 113L210 139Z" fill="#260b13" stroke="#fa2648" stroke-width="1.6"/>
+ <path d="M187 113L210 101L232 113L210 125Z" fill="url(#red)" stroke="#ff8496" stroke-width="1"/>
+ <path d="M204 112h12M210 106v12" stroke="#ffe4e8" stroke-width="1.8" opacity=".85"/>
+</g>
+<path d="M71 190l-24 0m12-12l-12 12 12 12" fill="none" stroke="#ff3a58" stroke-width="2" stroke-linecap="round"/>
+<path d="M340 126h35m-12-12l12 12-12 12" fill="none" stroke="#ff3a58" stroke-width="2" stroke-linecap="round"/>
+<circle cx="339" cy="126" r="5" fill="#fa2b4b" filter="url(#shine)"/>
+</svg>

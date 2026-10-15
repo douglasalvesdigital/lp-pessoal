@@ -221,10 +221,10 @@ export function SynapseTrail() {
           x2="0"
         >
           <stop offset="0%" stopColor="#E50914" stopOpacity="0" />
-          <stop offset="100%" stopColor="#FF343B" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#FF343B" stopOpacity="0.32" />
         </linearGradient>
         <radialGradient id="synapse-glow">
-          <stop offset="0%" stopColor="#FF343B" stopOpacity="0.55" />
+          <stop offset="0%" stopColor="#FF343B" stopOpacity="0.22" />
           <stop offset="100%" stopColor="#E50914" stopOpacity="0" />
         </radialGradient>
       </defs>
@@ -243,16 +243,28 @@ export function SynapseTrail() {
         ref={trailRef}
         fill="none"
         stroke="url(#synapse-trail)"
-        strokeWidth="1.5"
+        strokeWidth="1"
         strokeLinecap="round"
       />
       <g ref={nodesRef} />
       {/* Impulso */}
       <g ref={dotRef}>
-        <circle r="26" fill="url(#synapse-glow)" />
-        <circle r="9" className="synapse-pulse" fill="none" stroke="#FF343B" />
-        <circle r="3.5" fill="#FFE1E2" />
-        <circle r="5.5" fill="none" stroke="#FF343B" strokeWidth="2" />
+        <circle r="18" fill="url(#synapse-glow)" />
+        <circle
+          r="7"
+          className="synapse-pulse"
+          fill="none"
+          stroke="#FF343B"
+          strokeOpacity="0.4"
+        />
+        <circle r="2.5" fill="#FF8A8F" />
+        <circle
+          r="4.5"
+          fill="none"
+          stroke="#FF343B"
+          strokeOpacity="0.5"
+          strokeWidth="1"
+        />
       </g>
     </svg>
   )

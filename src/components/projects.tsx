@@ -2,6 +2,7 @@ import type { Project } from "@/components/project-card"
 import { ProjectsCarousel } from "@/components/projects-carousel"
 import { ProjectsMarquee } from "@/components/projects-marquee"
 import { Glow } from "@/components/glow"
+import { Eyebrow } from "@/components/eyebrow"
 import { Reveal } from "@/components/reveal"
 
 const projects: Project[] = [
@@ -179,10 +180,8 @@ export function Projects() {
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
-            <p className="text-muted-foreground text-sm tracking-[0.12em]">
-              projetos
-            </p>
-            <h2 className="mt-4 text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
+            <Eyebrow>Projetos</Eyebrow>
+            <h2 className="mt-5 text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
               Projetos que entreguei
             </h2>
           </div>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { animate, motion, useReducedMotion } from "motion/react"
 import { ArrowUpRight, Lock } from "lucide-react"
+import { AgencyBadge } from "@/components/agency-badge"
 import { cn } from "@/lib/utils"
 
 export type Project = {
@@ -126,9 +127,7 @@ export function ProjectTile({
               {project.segment}
             </span>
             {project.agency && (
-              <span className="text-muted-foreground">
-                · via {project.agency}
-              </span>
+              <AgencyBadge agency={project.agency} className="h-3 md:h-4" />
             )}
           </div>
           <Title className="mt-1 text-lg font-semibold tracking-tight md:mt-2 md:text-3xl">

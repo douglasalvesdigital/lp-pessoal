@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="300" viewBox="0 0 420 300" role="img"><defs>
+  <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22232b"/><stop offset=".48" stop-color="#111217"/><stop offset="1" stop-color="#08090d"/></linearGradient>
+  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff5365"/><stop offset=".38" stop-color="#ee102c"/><stop offset="1" stop-color="#7e0016"/></linearGradient>
+  <linearGradient id="redSide" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a80924"/><stop offset="1" stop-color="#35030d"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#24252c" stop-opacity=".97"/><stop offset=".55" stop-color="#121317" stop-opacity=".96"/><stop offset="1" stop-color="#090a0e" stop-opacity=".98"/></linearGradient>
+  <radialGradient id="halo"><stop stop-color="#e6002a" stop-opacity=".30"/><stop offset=".6" stop-color="#b10019" stop-opacity=".08"/><stop offset="1" stop-color="#f60028" stop-opacity="0"/></radialGradient>
+  <filter id="shadow" x="-40%" y="-60%" width="190%" height="240%"><feGaussianBlur stdDeviation="16"/></filter>
+  <filter id="shine" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="7"/></filter>
+  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+  <pattern id="dots" width="25" height="25" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".8" fill="#555964" opacity=".14"/></pattern>
+</defs>
+<ellipse cx="218" cy="150" rx="185" ry="147" fill="url(#halo)"/>
+<g transform="rotate(-4 200 152)">
+ <rect x="65" y="51" width="304" height="216" rx="17" fill="#000" opacity=".55" transform="translate(8 13)" filter="url(#shadow)"/>
+ <rect x="65" y="51" width="304" height="216" rx="17" fill="url(#glass)" stroke="#50505a" stroke-width="1.5"/>
+ <path d="M65 94H369" stroke="#36363f"/>
+ <circle cx="85" cy="72" r="4" fill="#ed2d47"/><circle cx="101" cy="72" r="4" fill="#7b4854"/><circle cx="117" cy="72" r="4" fill="#7b4854"/>
+ <rect x="87" y="116" width="88" height="6" rx="3" fill="#aaa7b0" opacity=".6"/><rect x="87" y="133" width="68" height="5" rx="2.5" fill="#aaa7b0" opacity=".25"/>
+ <path d="M91 232V185M124 232v-31M157 232v-52" stroke="#4f505b" stroke-width="12" stroke-linecap="round"/>
+ <path d="M91 231V215M124 231v-54M157 231v-69" stroke="#f12a49" stroke-width="11" stroke-linecap="round"/>
+ <path d="M88 245H178" stroke="#46444f"/>
+ <circle cx="276" cy="166" r="53" fill="#3b0a17" opacity=".48" filter="url(#shine)"/>
+ <circle cx="276" cy="166" r="48" fill="#110c12" stroke="#f3284a" stroke-width="3"/>
+ <path d="M254 166l14 15 29-33" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</g>
+<path d="M332 41l17 0 0 17" stroke="#f42a49" stroke-width="2" fill="none"/><path d="M349 41l-20 20" stroke="#f42a49" stroke-width="2"/>
+</svg>

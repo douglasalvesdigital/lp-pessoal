@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { motion, useReducedMotion, type PanInfo } from "motion/react"
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { ProjectTile, type Project } from "@/components/project-card"
+import { AgencyBadge } from "@/components/agency-badge"
 import { cn } from "@/lib/utils"
 
 /** Distância entre um card e o próximo, em % da largura do card. */
@@ -213,7 +214,7 @@ function Caption({ project }: { project: Project }) {
       <div className="flex flex-wrap items-center gap-x-2 text-[11px] tracking-[0.1em] uppercase">
         <span className="text-red-light font-medium">{project.segment}</span>
         {project.agency && (
-          <span className="text-muted-foreground">· via {project.agency}</span>
+          <AgencyBadge agency={project.agency} className="h-3.5" />
         )}
       </div>
       <h3 className="mt-1.5 text-2xl font-semibold tracking-tight">

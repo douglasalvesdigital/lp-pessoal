@@ -25,13 +25,13 @@ const item: Variants = {
 export function Hero({ footer }: { footer?: ReactNode }) {
   return (
     <section className="glow-top-right-soft lg:glow-top-right relative isolate flex min-h-svh flex-col overflow-hidden">
-      <div className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-6 px-6 pt-24 pb-14 lg:grid-cols-[1.05fr_1fr] lg:gap-4 lg:px-8 lg:pt-24 lg:pb-16">
+      <div className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-6 px-6 pt-24 pb-14 lg:grid-cols-[1fr_auto] lg:gap-10 xl:grid-cols-[1.05fr_1fr] xl:gap-4 lg:px-8 lg:pt-24 lg:pb-16">
         {/* Texto — no celular vem depois da foto */}
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="order-2 max-w-xl lg:order-1"
+          className="order-2 max-w-xl lg:order-1 lg:max-w-[30rem] xl:max-w-xl"
         >
           <motion.h1
             variants={item}
@@ -87,7 +87,7 @@ export function Hero({ footer }: { footer?: ReactNode }) {
 /** Foto em destaque, com a esfera de sinapses viva atrás. */
 function Portrait() {
   return (
-    <div className="relative order-1 mx-auto w-full max-w-[400px] self-center sm:max-w-[440px] lg:order-2 lg:max-w-[520px] lg:justify-self-end">
+    <div className="relative order-1 mx-auto w-full max-w-[400px] self-center sm:max-w-[440px] lg:order-2 lg:w-[420px] lg:max-w-none lg:justify-self-end xl:w-full xl:max-w-[520px]">
       {/* Esfera de sinapses: o "cérebro" atrás da cabeça. A foto não captura o
           mouse, então a esfera continua reagindo ao hover. */}
       <NeuralSphere className="absolute top-[-18%] left-1/2 w-[135%] max-w-none -translate-x-1/2 opacity-70 lg:top-[-24%] lg:w-[150%] lg:opacity-90" />
@@ -104,7 +104,7 @@ function Portrait() {
           width={1122}
           height={1342}
           preload
-          sizes="(min-width: 1024px) 520px, (min-width: 640px) 440px, 400px"
+          sizes="(min-width: 1280px) 520px, (min-width: 1024px) 420px, (min-width: 640px) 440px, 400px"
           className="h-auto w-full drop-shadow-[0_0_60px_rgb(229_9_20/0.25)] [mask-image:linear-gradient(to_bottom,black_72%,transparent_99%)]"
         />
       </motion.div>
@@ -116,7 +116,7 @@ function Portrait() {
         label="full stack"
       />
       <StatBubble
-        className="top-[52%] -left-2 sm:-left-10 [animation-delay:-2s]"
+        className="top-[52%] -left-2 sm:-left-10 lg:-left-4 xl:-left-10 [animation-delay:-2s]"
         value="80+ projetos"
         label="entregues"
         accent

@@ -7,6 +7,7 @@ import {
 } from "@/components/brand-icons"
 import { ContactScreen } from "@/components/contact-screen"
 import { site } from "@/lib/site"
+import { Eyebrow } from "@/components/eyebrow"
 import { cn } from "@/lib/utils"
 
 const outline = cn(
@@ -39,10 +40,8 @@ export function Contact() {
         <div data-synapse-target>
           <ContactScreen>
             <div className="px-6 py-14 text-center sm:px-12 lg:py-20">
-              <p className="text-muted-foreground text-sm tracking-[0.12em]">
-                contato
-              </p>
-              <h2 className="mt-4 text-4xl leading-[1.1] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+              <Eyebrow center>Contato</Eyebrow>
+              <h2 className="mt-5 text-4xl leading-[1.1] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
                 Tem um desafio em mente?{" "}
                 <span className="text-red-light glow-text-red">
                   Vamos conversar.
