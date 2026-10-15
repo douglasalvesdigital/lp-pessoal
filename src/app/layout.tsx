@@ -13,11 +13,15 @@ const caveat = Caveat({
   variable: "--font-caveat",
   subsets: ["latin"],
   weight: ["500"],
+  // Só aparece no Sobre: não disputa banda com a primeira dobra
+  preload: false,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  // Usada só em detalhes abaixo da primeira dobra
+  preload: false,
 });
 
 export const metadata: Metadata = {

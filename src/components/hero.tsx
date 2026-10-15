@@ -16,9 +16,10 @@ const container: Variants = {
   show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 }
 
+// Sem opacity 0: o texto aparece no primeiro paint, mesmo antes do JS
 const item: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  hidden: { y: 16 },
+  show: { y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 }
 
 /** `footer` fica na base da primeira dobra (ex.: carrossel de tecnologias). */
@@ -93,10 +94,8 @@ function Portrait() {
       <NeuralSphere className="absolute top-[-18%] left-1/2 w-[135%] max-w-none -translate-x-1/2 opacity-70 lg:top-[-24%] lg:w-[150%] lg:opacity-90" />
 
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-        className="pointer-events-none relative"
+        initial={false}
+        className="hero-rise pointer-events-none relative"
       >
         <Image
           src="/jed-foto.png"

@@ -24,6 +24,11 @@
       stroke-dashoffset: -22;
     }
   }
+  @keyframes hero-rise {
+    from {
+      transform: translateY(18px);
+    }
+  }
   @keyframes float {
     0%,
     100% {
@@ -280,6 +285,16 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .synapse-trail .synapse-pulse {
+    animation: none;
+  }
+}
+
+/* Entrada da foto da hero em CSS (roda antes do JavaScript carregar) */
+.hero-rise {
+  animation: hero-rise 0.9s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise {
     animation: none;
   }
 }
