@@ -3,9 +3,14 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { AnimatePresence, motion } from "motion/react"
+import { AnimatePresence, motion, type Variants } from "motion/react"
 import { ArrowUpRight, Menu, X } from "lucide-react"
 import { buttonVariants } from "@/components/ui/button"
+import {
+  GithubIcon,
+  LinkedinIcon,
+  WhatsappIcon,
+} from "@/components/brand-icons"
 import { site } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
@@ -152,56 +157,188 @@ export function SiteHeader() {
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Menu do celular */}
-        <AnimatePresence>
-          {open && (
-            <motion.nav
-              id="menu-mobile"
-              aria-label="Principal"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="relative overflow-hidden md:hidden"
+      <MobileDrawer
+        open={open}
+        current={current}
+        onClose={() => setOpen(false)}
+      />
+    </header>
+  )
+}
+
+/* ---------- Menu do celular: gaveta lateral ---------- */
+
+const drawerList: Variants = {
+  open: { transition: { staggerChildren: 0.06, delayChildren: 0.15 } },
+  closed: {},
+}
+
+const drawerItem: Variants = {
+  open: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } },
+  closed: { opacity: 0, x: 24 },
+}
+
+function MobileDrawer({
+  open,
+  current,
+  onClose,
+}: {
+  open: boolean
+  current: string | null
+  onClose: () => void
+}) {
+  return (
+    <AnimatePresence>
+      {open && (
+        <div className="pointer-events-auto fixed inset-0 z-[70] md:hidden">
+          {/* Fundo escurecido: toque fora fecha */}
+          <motion.div
+            aria-hidden
+            onClick={onClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          />
+
+          <motion.nav
+            id="menu-mobile"
+            aria-label="Principal"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", stiffness: 260, damping: 32 }}
+            className="border-border/80 bg-background-secondary/95 absolute inset-y-0 right-0 flex w-[86%] max-w-sm flex-col overflow-hidden border-l shadow-[-30px_0_80px_-20px_rgb(0_0_0/0.9)] backdrop-blur-xl"
+          >
+            {/* Glow da marca no topo da gaveta */}
+            <div
+              aria-hidden
+              className="bg-red-dark/50 pointer-events-none absolute -top-32 -right-24 size-80 rounded-full blur-[90px]"
+            />
+            <div
+              aria-hidden
+              className="via-red-light/50 pointer-events-none absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent to-transparent"
+            />
+
+            <div className="relative flex h-[4.25rem] items-center justify-between px-6">
+              <span className="text-muted-foreground text-xs tracking-[0.12em] uppercase">
+                Menu
+              </span>
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Fechar menu"
+                className="border-border hover:border-red-primary/50 flex size-10 items-center justify-center rounded-full border transition-colors"
+              >
+                <X className="size-4" />
+              </button>
+            </div>
+
+            <motion.ul
+              variants={drawerList}
+              initial="closed"
+              animate="open"
+              className="relative flex-1 px-6 pt-4"
             >
-              <ul className="flex flex-col gap-1 px-6 pt-2 pb-8">
-                {links.map((link) => (
-                  <li key={link.href}>
+              {links.map((link, i) => {
+                const active = current === link.href
+                return (
+                  <motion.li key={link.href} variants={drawerItem}>
                     <a
                       href={link.href}
-                      onClick={() => setOpen(false)}
-                      className={cn(
-                        "border-border/60 flex items-center justify-between border-b py-4 text-2xl font-medium tracking-tight",
-                        current === link.href
-                          ? "text-foreground"
-                          : "text-muted-foreground",
-                      )}
+                      onClick={onClose}
+                      aria-current={active ? "true" : undefined}
+                      className="group/item border-border/60 flex items-center gap-4 border-b py-5"
                     >
-                      {link.label}
-                      {current === link.href && (
-                        <span className="bg-red-primary size-1.5 rounded-full" />
+                      <span
+                        className={cn(
+                          "font-mono text-xs",
+                          active
+                            ? "text-red-light"
+                            : "text-muted-foreground/60",
+                        )}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span
+                        className={cn(
+                          "flex-1 text-3xl font-semibold tracking-tight transition-colors",
+                          active
+                            ? "text-foreground"
+                            : "text-muted-foreground group-hover/item:text-foreground",
+                        )}
+                      >
+                        {link.label}
+                      </span>
+                      {active ? (
+                        <span className="bg-red-primary size-2 rounded-full shadow-[0_0_10px_2px_rgb(255_52_59/0.7)]" />
+                      ) : (
+                        <ArrowUpRight className="text-muted-foreground/40 size-5 rotate-45 transition-transform group-hover/item:rotate-0" />
                       )}
                     </a>
-                  </li>
-                ))}
-                <li className="pt-6">
-                  <a
-                    href={site.whatsapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setOpen(false)}
-                    className={cn(buttonVariants(), "h-12 w-full text-base")}
-                  >
-                    Vamos conversar
-                    <ArrowUpRight />
-                  </a>
-                </li>
-              </ul>
-            </motion.nav>
-          )}
-        </AnimatePresence>
-      </div>
-    </header>
+                  </motion.li>
+                )
+              })}
+            </motion.ul>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.4 }}
+              className="relative space-y-5 px-6 pb-8"
+            >
+              <a
+                href={site.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={onClose}
+                className={cn(
+                  buttonVariants(),
+                  "h-12 w-full text-base shadow-[0_8px_32px_-10px_rgb(229_9_20/0.7)]",
+                )}
+              >
+                <WhatsappIcon className="size-4" />
+                Vamos conversar
+                <ArrowUpRight />
+              </a>
+
+              <div className="flex items-center justify-between">
+                <p className="text-muted-foreground flex items-center gap-2 text-xs">
+                  <span className="relative flex size-2">
+                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                    <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
+                  </span>
+                  Disponível para projetos
+                </p>
+                <div className="flex gap-2">
+                  {[
+                    {
+                      href: site.linkedin,
+                      label: "LinkedIn",
+                      icon: LinkedinIcon,
+                    },
+                    { href: site.github, label: "GitHub", icon: GithubIcon },
+                  ].map(({ href, label, icon: Icon }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      className="border-border text-muted-foreground hover:border-red-primary/50 hover:text-red-light flex size-9 items-center justify-center rounded-full border transition-colors"
+                    >
+                      <Icon className="size-4" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </motion.nav>
+        </div>
+      )}
+    </AnimatePresence>
   )
 }
