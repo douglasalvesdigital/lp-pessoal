@@ -14,6 +14,10 @@ import {
 import { site } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
+/** Sublinhado (::after) que cresce da esquerda pra direita. */
+const UNDERLINE =
+  "after:bg-red-primary after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:shadow-[0_0_8px_rgb(255_52_59/0.8)] after:transition-transform after:duration-300 after:ease-out"
+
 const links = [
   { href: "#especialidades", label: "Especialidades" },
   { href: "#projetos", label: "Projetos" },
@@ -113,19 +117,23 @@ export function SiteHeader() {
                     href={link.href}
                     aria-current={current === link.href ? "true" : undefined}
                     className={cn(
-                      "relative rounded-full px-4 py-2 text-sm transition-colors",
+                      "group/link px-4 py-2 text-sm transition-colors",
                       current === link.href
                         ? "text-foreground"
                         : "text-muted-foreground hover:text-foreground",
                     )}
                   >
-                    {link.label}
-                    {current === link.href && (
-                      <motion.span
-                        layoutId="nav-dot"
-                        className="bg-red-primary absolute bottom-0.5 left-1/2 size-1 -translate-x-1/2 rounded-full shadow-[0_0_8px_1px_rgb(255_52_59/0.7)]"
-                      />
-                    )}
+                    {/* Sublinhado cresce da esquerda pra direita: no hover e na seção ativa */}
+                    <span
+                      className={cn(
+                        "relative",
+                        UNDERLINE,
+                        "group-hover/link:after:scale-x-100",
+                        current === link.href && "after:scale-x-100",
+                      )}
+                    >
+                      {link.label}
+                    </span>
                   </a>
                 </li>
               ))}
@@ -151,9 +159,9 @@ export function SiteHeader() {
               aria-label={open ? "Fechar menu" : "Abrir menu"}
               aria-expanded={open}
               aria-controls="menu-mobile"
-              className="border-border flex size-10 items-center justify-center rounded-full border md:hidden"
+              className="text-foreground/80 hover:text-foreground -mr-2 flex size-10 items-center justify-center transition-colors md:hidden"
             >
-              {open ? <X className="size-4" /> : <Menu className="size-4" />}
+              {open ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>
           </div>
         </div>
@@ -223,17 +231,14 @@ function MobileDrawer({
               className="via-red-light/50 pointer-events-none absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent to-transparent"
             />
 
-            <div className="relative flex h-[4.25rem] items-center justify-between px-6">
-              <span className="text-muted-foreground text-xs tracking-[0.12em] uppercase">
-                Menu
-              </span>
+            <div className="relative flex h-[4.25rem] items-center justify-end px-4">
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="Fechar menu"
-                className="border-border hover:border-red-primary/50 flex size-10 items-center justify-center rounded-full border transition-colors"
+                className="text-foreground/80 hover:text-foreground flex size-10 items-center justify-center transition-colors"
               >
-                <X className="size-4" />
+                <X className="size-5" />
               </button>
             </div>
 
@@ -263,19 +268,21 @@ function MobileDrawer({
                       >
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span
-                        className={cn(
-                          "flex-1 text-3xl font-semibold tracking-tight transition-colors",
-                          active
-                            ? "text-foreground"
-                            : "text-muted-foreground group-hover/item:text-foreground",
-                        )}
-                      >
-                        {link.label}
+                      <span className="flex-1">
+                        <span
+                          className={cn(
+                            "relative text-3xl font-semibold tracking-tight transition-colors",
+                            UNDERLINE,
+                            "after:-bottom-1 after:h-0.5",
+                            active
+                              ? "text-foreground after:scale-x-100 after:delay-300"
+                              : "text-muted-foreground group-hover/item:text-foreground",
+                          )}
+                        >
+                          {link.label}
+                        </span>
                       </span>
-                      {active ? (
-                        <span className="bg-red-primary size-2 rounded-full shadow-[0_0_10px_2px_rgb(255_52_59/0.7)]" />
-                      ) : (
+                      {!active && (
                         <ArrowUpRight className="text-muted-foreground/40 size-5 rotate-45 transition-transform group-hover/item:rotate-0" />
                       )}
                     </a>

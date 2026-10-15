@@ -233,8 +233,10 @@ function StackCard({
           <div
             aria-hidden
             className={cn(
-              "bg-red-dark/45 pointer-events-none absolute size-[28rem] rounded-full blur-[120px]",
-              index % 2 === 0 ? "-top-56 -left-40" : "-right-40 -bottom-56",
+              "bg-red-dark/20 pointer-events-none absolute size-72 rounded-full blur-[100px] lg:bg-red-dark/45 lg:size-[28rem] lg:blur-[120px]",
+              index % 2 === 0
+                ? "-top-32 -left-24 lg:-top-56 lg:-left-40"
+                : "-right-24 -bottom-32 lg:-right-40 lg:-bottom-56",
             )}
           />
 
