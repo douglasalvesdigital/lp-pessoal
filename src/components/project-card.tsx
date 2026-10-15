@@ -39,6 +39,7 @@ export function ProjectTile({
   active,
   decorative = false,
   bare = false,
+  keepVideo = true,
   expand = true,
   className,
 }: {
@@ -48,6 +49,9 @@ export function ProjectTile({
   decorative?: boolean
   /** Só imagem/vídeo, sem o texto sobreposto (o texto fica fora do card). */
   bare?: boolean
+  /** Mantém o vídeo carregado depois de fechar (troca instantânea no desktop).
+   * No carrossel do celular é false: libera memória ao passar de projeto. */
+  keepVideo?: boolean
   /** Cresce ao ficar ativo (faixa do desktop). No carrossel do celular, não. */
   expand?: boolean
   className?: string
@@ -56,6 +60,7 @@ export function ProjectTile({
   // Montado na primeira interação e mantido depois: as próximas são instantâneas
   const [mounted, setMounted] = useState(false)
   if (active && !mounted) setMounted(true)
+  if (!active && mounted && !keepVideo) setMounted(false)
 
   return (
     <motion.article

@@ -12,8 +12,15 @@ const STEP = 104
 const SWIPE = 50
 /** Tempo em cada projeto antes de passar sozinho (ms). */
 const AUTOPLAY = 4200
-/** Duração da passagem de um card para o outro (s). */
-const SLIDE = 1.1
+/** Mola da passagem de um card para o outro: rápida e sem tranco. */
+const SLIDE = {
+  type: "spring",
+  stiffness: 320,
+  damping: 36,
+  mass: 0.9,
+} as const
+/** Espera a passagem assentar antes de carregar o vídeo (ms). */
+const SETTLE = 420
 
 /**
  * Carrossel de projetos: um projeto grande no centro e um vizinho de cada lado
@@ -27,6 +34,13 @@ const SLIDE = 1.1
 export function ProjectsCarousel({ projects }: { projects: Project[] }) {
   const total = projects.length
   const [index, setIndex] = useState(0)
+  // Índice "assentado": o vídeo só carrega depois que a passagem termina,
+  // para não disputar processamento com a animação
+  const [settled, setSettled] = useState(0)
+  useEffect(() => {
+    const id = setTimeout(() => setSettled(index), SETTLE)
+    return () => clearTimeout(id)
+  }, [index])
   const ref = useRef<HTMLDivElement>(null)
   // Só toca (e baixa vídeo) quando o carrossel está na tela
   const [inView, setInView] = useState(false)
@@ -79,8 +93,11 @@ export function ProjectsCarousel({ projects }: { projects: Project[] }) {
   }
 
   const onDragEnd = (_: unknown, info: PanInfo) => {
-    if (info.offset.x < -SWIPE) go(index + 1)
-    else if (info.offset.x > SWIPE) go(index - 1)
+    // Distância ou um "flick" rápido já passam de projeto
+    const { x: dx } = info.offset
+    const { x: vx } = info.velocity
+    if (dx < -SWIPE || vx < -400) go(index + 1)
+    else if (dx > SWIPE || vx > 400) go(index - 1)
   }
 
   return (
@@ -99,7 +116,10 @@ export function ProjectsCarousel({ projects }: { projects: Project[] }) {
         <motion.div
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.18}
+          // Acompanha o dedo de verdade e volta rápido ao soltar
+          dragElastic={0.7}
+          dragMomentum={false}
+          dragTransition={{ bounceStiffness: 520, bounceDamping: 42 }}
           onDragEnd={onDragEnd}
           className="relative mx-auto aspect-[16/10] w-[78vw] max-w-[520px] cursor-grab touch-pan-y active:cursor-grabbing md:aspect-[16/10] md:w-[64vw] md:max-w-[880px]"
           role="region"
@@ -118,11 +138,7 @@ export function ProjectsCarousel({ projects }: { projects: Project[] }) {
                   scale: d === 0 ? 1 : 0.88,
                   opacity: d === 0 ? 1 : visible ? 0.45 : 0,
                 }}
-                transition={
-                  visible
-                    ? { duration: SLIDE, ease: [0.22, 1, 0.36, 1] }
-                    : { duration: 0 }
-                }
+                transition={visible ? SLIDE : { duration: 0 }}
                 onClick={() => d !== 0 && visible && go(i)}
                 aria-hidden={d !== 0}
                 className={cn(
@@ -133,10 +149,11 @@ export function ProjectsCarousel({ projects }: { projects: Project[] }) {
               >
                 <ProjectTile
                   project={project}
-                  active={open && d === 0}
+                  active={open && d === 0 && i === settled}
                   expand={false}
                   decorative={d !== 0}
                   bare
+                  keepVideo={false}
                   className="aspect-auto size-full sm:w-full lg:w-full"
                 />
               </motion.div>
