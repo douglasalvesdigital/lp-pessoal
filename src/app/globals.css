@@ -160,6 +160,23 @@
       transparent 100%
     );
   }
+  /* Celular: tela estreita e alta. A elipse do desktop apagava quase tudo;
+     aqui o grid fica visível e só some de leve nas laterais e no rodapé. */
+  @media (max-width: 767px) {
+    body::before {
+      background-image:
+        linear-gradient(to right, rgb(255 255 255 / 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(255 255 255 / 0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 18%,
+        black 82%,
+        transparent 100%
+      );
+    }
+  }
   html {
     @apply font-sans;
     scroll-behavior: smooth;
